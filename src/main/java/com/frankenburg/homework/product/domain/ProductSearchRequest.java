@@ -1,5 +1,6 @@
 package com.frankenburg.homework.product.domain;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,6 +14,7 @@ public class ProductSearchRequest {
     private String query;
 
     @Min(1)
+    @Max(Integer.MAX_VALUE)
     private int page = 1;
 
 }
