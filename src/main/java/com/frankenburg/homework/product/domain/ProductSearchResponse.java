@@ -12,5 +12,7 @@ public class ProductSearchResponse {
     private String title;
     private String description;
     private BigDecimal final_price;
+    private int currentPage;
+    private int totaPages;
 
 }

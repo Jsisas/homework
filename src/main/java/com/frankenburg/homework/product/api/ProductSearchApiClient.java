@@ -18,7 +18,7 @@ public interface ProductSearchApiClient {
     ProductSearchResult search(@RequestParam("q") String query, @RequestParam("skip") long skip);
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    record ProductSearchResult(List<DummyProduct> products) {}
+    record ProductSearchResult(List<DummyProduct> products, int total) {}
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     record DummyProduct(String title, String description, double price, double discountPercentage) {

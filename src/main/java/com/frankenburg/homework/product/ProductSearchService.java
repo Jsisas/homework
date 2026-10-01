@@ -15,10 +15,18 @@ public class ProductSearchService {
     private final ProductSearchApiClient apiClient;
 
     public List<ProductSearchResponse> search(ProductSearchRequest productSearchRequest) {
-        return apiClient.search(productSearchRequest.getQuery(), pagesToSkip(productSearchRequest.getPage()))
+        ProductSearchApiClient.ProductSearchResult productResult = apiClient.search(productSearchRequest.getQuery(), pagesToSkip(productSearchRequest.getPage()));
+        int totalPages = productResult.total() / ProductSearchApiClient.PAGE_SIZE;
+        return productResult
                 .products()
                 .stream()
-                .map(dummyProduct -> new ProductSearchResponse(dummyProduct.title(), dummyProduct.description(), dummyProduct.getProductDiscountedPrice()))
+                .map(dummyProduct -> new ProductSearchResponse(
+                        dummyProduct.title(),
+                        dummyProduct.description(),
+                        dummyProduct.getProductDiscountedPrice(),
+                        productSearchRequest.getPage(),
+                        totalPages)
+                )
                 .toList();
     }
 
