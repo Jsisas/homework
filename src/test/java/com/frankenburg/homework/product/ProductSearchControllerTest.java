@@ -42,7 +42,7 @@ class ProductSearchControllerTest {
     void stubApi() {
         given(apiClient.search("phone", 0)).willReturn(new ProductSearchApiClient.ProductSearchResult(List.of(
                 new ProductSearchApiClient.DummyProduct("Apple AirPods Max Silver", "Headphones", 549.99, 13.67),
-                new ProductSearchApiClient.DummyProduct("Apple iPhone Charger", "Charger", 19.99, 18.52))));
+                new ProductSearchApiClient.DummyProduct("Apple iPhone Charger", "Charger", 19.99, 18.52)), 23));
     }
 
     @Test
@@ -60,7 +60,7 @@ class ProductSearchControllerTest {
     @Test
     void jsonSearchSecondPage() throws Exception {
         given(apiClient.search("phone", 2)).willReturn(new ProductSearchApiClient.ProductSearchResult(List.of(
-                new ProductSearchApiClient.DummyProduct("Apple MagSafe Battery Pack", "Battery", 99.99, 17.17))));
+                new ProductSearchApiClient.DummyProduct("Apple MagSafe Battery Pack", "Battery", 99.99, 17.17)), 23));
 
         mvc.perform(post(PATH).contentType(MediaType.APPLICATION_JSON).content("{\"query\":\"phone\",\"page\":2}"))
                 .andExpect(status().isOk())
@@ -70,7 +70,7 @@ class ProductSearchControllerTest {
     @Test
     void finalPriceKeepsTrailingZeros() throws Exception {
         given(apiClient.search("round", 0)).willReturn(new ProductSearchApiClient.ProductSearchResult(List.of(
-                new ProductSearchApiClient.DummyProduct("Half off", "Discounted", 20, 50))));
+                new ProductSearchApiClient.DummyProduct("Half off", "Discounted", 20, 50)), 1));
 
         mvc.perform(post(PATH).contentType(MediaType.APPLICATION_JSON).content("{\"query\":\"round\"}"))
                 .andExpect(status().isOk())

@@ -43,7 +43,7 @@ class RequestResponseLoggingFilterTest {
     @Test
     void successfulExchangeIsLoggedAsMessageInThenMessageOut(CapturedOutput output) throws Exception {
         given(apiClient.search(anyString(), anyLong())).willReturn(new ProductSearchApiClient.ProductSearchResult(List.of(
-                new ProductSearchApiClient.DummyProduct("Apple AirPods Max Silver", "Headphones", 549.99, 13.67))));
+                new ProductSearchApiClient.DummyProduct("Apple AirPods Max Silver", "Headphones", 549.99, 13.67)), 1));
 
         mvc.perform(post(PATH).contentType(MediaType.APPLICATION_JSON).content(BODY));
 
