@@ -16,7 +16,7 @@ public class ProductSearchService {
 
     public List<ProductSearchResponse> search(ProductSearchRequest productSearchRequest) {
         ProductSearchApiClient.ProductSearchResult productResult = apiClient.search(productSearchRequest.getQuery(), pagesToSkip(productSearchRequest.getPage()));
-        int totalPages = productResult.total() / ProductSearchApiClient.PAGE_SIZE;
+        int totalPages = Math.ceilDiv(productResult.total(), ProductSearchApiClient.PAGE_SIZE);
         return productResult
                 .products()
                 .stream()
